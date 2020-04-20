@@ -1,0 +1,9 @@
+https://api.covid19api.com/dayone/country/south-africa
+https://api.covid19api.com/total/dayone/country/south-africa
+https://api.covid19api.com/country/south-africa/status/confirmed/live?from=2020-03-01T00:00:00Z&to=2020-04-01T00:00:00Z
+srednio->https://api.covid19api.com/total/country/south-africa
+https://api.covid19api.com/world/total
+https://api.covid19api.com/summary
+
+https://covid19.mathdro.id/api/countries/poland
+https://covid19.mathdro.id/api
