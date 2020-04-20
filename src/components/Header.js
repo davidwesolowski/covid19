@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/core';
+import logoImg from '../img/logo.png';
 
 const header = css({
     display: 'flex',
@@ -17,7 +18,7 @@ const logo = css({
 
 const Header = () => (
     <header css={header}>
-        <img src="/logo.png" alt="covid19" css={logo}/>
+        <img src={logoImg} alt="covid19" css={logo}/>
     </header>
 );
 
