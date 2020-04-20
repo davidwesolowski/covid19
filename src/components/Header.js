@@ -6,6 +6,7 @@ const header = css({
     display: 'flex',
     justifyContent: 'center',
     gridArea: 'header',
+    width: '100%',
     padding: 3,
     '@media (min-width: 768px)':{
 		padding: 8

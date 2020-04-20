@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import moment from 'moment-timezone';
 import 'moment/locale/pl';
 
+
 const BarChart = ({ data }) => {
 
     const { confirmed, deaths, recovered, lastUpdate  } = data;
@@ -12,7 +13,7 @@ const BarChart = ({ data }) => {
         },
         title: {
             display: true,
-            text: `Aktualny stan, ${moment(lastUpdate).tz('Europe/Warsaw').format('D MMMM YYYY')}`,
+            text: `Aktualny stan, ${moment(lastUpdate).tz('Europe/Warsaw').format('D MMMM YYYY')} r.`,
             fontColor: 'rgb(255,255,255)',
             fontSize: 18
         },
@@ -26,7 +27,10 @@ const BarChart = ({ data }) => {
 		    backgroundColor: '#121212',
             xAxes: [
                 { 
-                    ticks: { fontColor: 'rgb(255,255,255)', fontSize: 14} ,
+                    ticks: {
+                        fontColor: 'rgb(255,255,255)',
+                        fontSize: 12,
+                    },
                     gridLines: { 
                        color: 'rgb(255,255,255, 0.2)',
                        zeroLineColor: 'rgb(255,255,255)'
@@ -35,7 +39,10 @@ const BarChart = ({ data }) => {
             ],
             yAxes: [
                 { 
-                    ticks: { fontColor: 'rgb(255,255,255)', fontSize: 14 } ,
+                    ticks: {
+                        fontColor: 'rgb(255,255,255)',
+                        fontSize: 12,
+                    },
                     gridLines: { 
                        color: 'rgba(255,255,255, 0.2)',
                        zeroLineColor: 'rgb(255,255,255)' 

@@ -11,7 +11,6 @@ const container = css({
 	display: 'grid',
 	width: '95vw',
 	gridTemplateAreas: ' "header" "cards" "countries" "chart"',
-	gridTemplateColumns: 'auto',
 	gridTemplateRows: '100px auto 70px auto',
 	gridRowGap: 10,
 	margin: '0 auto',

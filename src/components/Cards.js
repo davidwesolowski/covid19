@@ -8,6 +8,7 @@ const cards = css({
     justifyContent: 'center',
     alignItems: 'center',
     gridArea: 'cards',
+    width: '100%',
     '@media (min-width: 768px)':{
         flexDirection: 'row',
     }
