@@ -5,7 +5,8 @@ import BarChart from './BarChart';
 
 const chart = css({
     gridArea: 'chart',
-    width: '100%'
+    width: '100%',
+    marginBottom: 15
 });
 
 const Chart = ({ data, country }) =>

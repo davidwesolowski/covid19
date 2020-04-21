@@ -9,13 +9,13 @@ import Chart from './Chart';
 
 const container = css({
 	display: 'grid',
-	width: '95vw',
+	maxWidth: '100vw',
 	gridTemplateAreas: ' "header" "cards" "countries" "chart"',
 	gridTemplateRows: '100px auto 70px auto',
 	gridRowGap: 10,
-	margin: '0 auto',
 	'@media (min-width: 768px)':{
-		width: '80vw',
+		maxWidth: '80vw',
+		margin: '0 auto',
     }
 });
 
@@ -29,6 +29,7 @@ const globalStyles = css({
 	{
 		backgroundColor: '#121212',
 		color: '#fff',
+		maxWidth: '100vw',
 		margin: 0,
 		'@media (min-width: 768px)':{
 			margin: 8,
