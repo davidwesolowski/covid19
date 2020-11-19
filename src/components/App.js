@@ -61,7 +61,7 @@ const App = () =>
 	useEffect(() => {
 		const fetchData = async () => {
 			let urlToday = 'https://covid19.mathdro.id/api';
-			const date = moment().subtract(1, 'd').format('M-D-YYYY');
+			const date = moment().subtract(2, 'd').add(1, 'h').format('M-D-YYYY');
 			const { data } = await axios.get(`https://covid19.mathdro.id/api/daily/${date}`);
 			let yesterday = {
 				confirmed: -1,
