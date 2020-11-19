@@ -8,7 +8,8 @@ const cards = css({
     justifyContent: 'center',
     alignItems: 'center',
     gridArea: 'cards',
-    width: '100%',
+    width: 'auto',
+    //minWidth: '100%',
     '@media (min-width: 768px)':{
         flexDirection: 'row',
     }
@@ -16,12 +17,33 @@ const cards = css({
 
 const Cards = ({ data }) =>
 {
-    const { confirmed, deaths, recovered, lastUpdate } = data;
+    const { confirmed, deaths, recovered, lastUpdate, today } = data;
     return (
         confirmed && (<div css={cards}>
-            <Card title="Zachorowań" date={lastUpdate} count={confirmed.value} styleColor="#d50000" description="Liczba osób zarażonych koronawirusem"/>
-            <Card title="Zgonów" date={lastUpdate} count={deaths.value} styleColor="#4a148c" description="Liczba osób zmarłych z powodu koronawirusa"/>
-            <Card title="Wyzdrowień" date={lastUpdate} count={recovered.value} styleColor="#43a047" description="Liczba osób wyzdrowiałych z koronawirusa"/>
+            <Card 
+                title="Zachorowań" 
+                date={lastUpdate} 
+                countToday={today.confirmed} 
+                countOverall={confirmed.value} 
+                styleColor="#d50000" 
+                description="Liczba osób zarażonych koronawirusem"
+            />
+            <Card 
+                title="Zgonów" 
+                date={lastUpdate}
+                countToday={today.deaths} 
+                countOverall={deaths.value} 
+                styleColor="#4a148c" 
+                description="Liczba osób zmarłych z powodu koronawirusa"
+            />
+            <Card 
+                title="Wyzdrowień" 
+                date={lastUpdate}
+                countToday={today.recovered} 
+                countOverall={recovered.value}
+                styleColor="#43a047" 
+                description="Liczba osób wyzdrowiałych z koronawirusa"
+            />
         </div>)
     )
 };

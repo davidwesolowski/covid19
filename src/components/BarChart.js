@@ -3,9 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import moment from 'moment-timezone';
 import 'moment/locale/pl';
 
-
 const BarChart = ({ data }) => {
-
     const { confirmed, deaths, recovered, lastUpdate  } = data;
     const options = {
         legend: {

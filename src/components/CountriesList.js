@@ -8,7 +8,6 @@ const styleCountries = css({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
 });
 
 const selectList = css({

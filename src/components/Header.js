@@ -6,15 +6,20 @@ const header = css({
     display: 'flex',
     justifyContent: 'center',
     gridArea: 'header',
-    width: '100%',
-    padding: 3,
+    padding: '5px 3px',
     '@media (min-width: 768px)':{
-		padding: 8
+        padding: 8,
     }
 });
 
 const logo = css({
-    filter: 'invert(100%)'
+    filter: 'invert(100%)',
+    width: '100%',
+    objectFit: 'contain',
+    '@media (min-width: 768px)': {
+        width: 'auto',
+        objectFit: 'fill'
+    }
 });
 
 const Header = () => (

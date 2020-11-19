@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { Global, css } from '@emotion/core';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
@@ -9,12 +10,12 @@ import Chart from './Chart';
 
 const container = css({
 	display: 'grid',
-	maxWidth: '100vw',
+	width: '100%',
 	gridTemplateAreas: ' "header" "cards" "countries" "chart"',
-	gridTemplateRows: '100px auto 70px auto',
+	gridTemplateRows: '80px auto 70px 250px',
 	gridRowGap: 10,
 	'@media (min-width: 768px)':{
-		maxWidth: '80vw',
+		maxWidth: '80%',
 		margin: '0 auto',
     }
 });
@@ -25,22 +26,27 @@ const loader = css({
 });
 
 const globalStyles = css({
+	'*': {
+		margin: 0,
+		padding: 0,
+		boxSizing: 'border-box',
+	},
 	'body':
 	{
+		minWidth: '95vw',
 		backgroundColor: '#121212',
 		color: '#fff',
-		maxWidth: '100vw',
-		margin: 0,
-		'@media (min-width: 768px)':{
-			margin: 8,
-		}
 	},
 });
+
+const defaultData = {
+	confirmed: 0, deaths: 0, recovered: 0
+}
 
 const App = () =>
 {
 	const [data, setData] = useState({
-		confirmed: 0, deaths: 0, recovered: 0, lastUpdate: 0
+		...defaultData, lastUpdate: 0, today: { ...defaultData }
 	});
 	const [country, setCountry] = useState('');
 	const [loading, setLoading] = useState(true);
@@ -53,15 +59,41 @@ const App = () =>
 	};
 
 	useEffect(() => {
-		let url = 'https://covid19.mathdro.id/api';
-		if (country)
-			url += `/countries/${country}`
-		const fetchData = async (url) => {
-			const { data: { confirmed, deaths, recovered, lastUpdate } } = await axios.get(url);
-			setData({ confirmed, deaths, recovered, lastUpdate });
+		const fetchData = async () => {
+			let urlToday = 'https://covid19.mathdro.id/api';
+			const date = moment().subtract(1, 'd').format('M-D-YYYY');
+			const { data } = await axios.get(`https://covid19.mathdro.id/api/daily/${date}`);
+			let yesterday = {
+				confirmed: -1,
+				recovered: -1,
+				deaths: -1 
+			};
+			if (country) {
+				urlToday += `/countries/${country}`;
+				const countryPrevInfo = data.find(element => element.countryRegion === country);
+				if (countryPrevInfo) yesterday = { 
+					confirmed: countryPrevInfo.confirmed,
+					recovered: countryPrevInfo.recovered,
+					deaths: countryPrevInfo.deaths
+				};
+			}
+			else {
+				yesterday = data.reduce((prev, current) => ({
+					confirmed: parseInt(prev.confirmed) + parseInt(current.confirmed),
+					recovered: parseInt(prev.recovered) + parseInt(current.recovered),
+					deaths: parseInt(prev.deaths) + parseInt(current.deaths)
+				}), { confirmed: 0, recovered: 0, deaths: 0 })
+			}
+			const { data: { confirmed, deaths, recovered, lastUpdate } } = await axios.get(urlToday);
+			const today = {
+				confirmed: parseInt(confirmed.value) - yesterday.confirmed,
+				recovered: parseInt(recovered.value) - yesterday.recovered,
+				deaths: parseInt(deaths.value) - yesterday.deaths
+			};
+			setData({ confirmed, deaths, recovered, lastUpdate, today });
 			setLoading(false);
 		};
-		fetchData(url);
+		fetchData();
 	}, [country, setData])
 
 	return (
