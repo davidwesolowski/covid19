@@ -1,6 +1,6 @@
 
 # App to track covid19
-## You can check the app at the https://github.com/davidwesolowski/covid19
+## You can check the app at the https://davidwesolowski.github.io/covid19/
 
 ## Available scripts
 ### `npm start`
