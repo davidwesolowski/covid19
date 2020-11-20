@@ -61,15 +61,23 @@ const App = () =>
 	useEffect(() => {
 		const fetchData = async () => {
 			let urlToday = 'https://covid19.mathdro.id/api';
-			const date = moment().subtract(2, 'd').add(1, 'h').format('M-D-YYYY');
+			if (country) urlToday += `/countries/${country}`;
+
+			const { data: { confirmed, deaths, recovered, lastUpdate } } = await axios.get(urlToday);
+			let date = '';
+			if (moment(lastUpdate).format('M-D-YYYY') === moment().format('M-D-YYYY')) {
+				date = moment().subtract(1, 'd').format('M-D-YYYY');
+			} else {
+				date = moment().subtract(2, 'd').add(1, 'h').format('M-D-YYYY');
+			}
 			const { data } = await axios.get(`https://covid19.mathdro.id/api/daily/${date}`);
 			let yesterday = {
 				confirmed: -1,
 				recovered: -1,
 				deaths: -1 
 			};
+
 			if (country) {
-				urlToday += `/countries/${country}`;
 				yesterday = data.filter(element => element.countryRegion === country)
 					.reduce((prev, current) => ({
 						confirmed: parseInt(prev.confirmed) + parseInt(current.confirmed),
@@ -84,7 +92,6 @@ const App = () =>
 					deaths: parseInt(prev.deaths) + parseInt(current.deaths)
 				}), { confirmed: 0, recovered: 0, deaths: 0 })
 			}
-			const { data: { confirmed, deaths, recovered, lastUpdate } } = await axios.get(urlToday);
 			const today = {
 				confirmed: parseInt(confirmed.value) - yesterday.confirmed,
 				recovered: parseInt(recovered.value) - yesterday.recovered,
