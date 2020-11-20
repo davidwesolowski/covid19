@@ -41,7 +41,7 @@ const cardDescTime = css({
 
 const Card = ({ title, countOverall, date, description, styleColor, countToday }) =>
 {
-    const time = moment(date).tz('Europe/Warsaw').format('D MMMM YYYY, kk:mm');
+    const time = moment(date).tz('Europe/Warsaw').format('D MMMM YYYY, HH:mm');
     return (
         <div css={css`
             ${card};

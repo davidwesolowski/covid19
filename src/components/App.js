@@ -70,12 +70,12 @@ const App = () =>
 			};
 			if (country) {
 				urlToday += `/countries/${country}`;
-				const countryPrevInfo = data.find(element => element.countryRegion === country);
-				if (countryPrevInfo) yesterday = { 
-					confirmed: countryPrevInfo.confirmed,
-					recovered: countryPrevInfo.recovered,
-					deaths: countryPrevInfo.deaths
-				};
+				yesterday = data.filter(element => element.countryRegion === country)
+					.reduce((prev, current) => ({
+						confirmed: parseInt(prev.confirmed) + parseInt(current.confirmed),
+						recovered: parseInt(prev.recovered) + parseInt(current.recovered),
+						deaths: parseInt(prev.deaths) + parseInt(current.deaths)
+					}), { confirmed: 0, recovered: 0, deaths: 0 });
 			}
 			else {
 				yesterday = data.reduce((prev, current) => ({
